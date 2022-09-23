@@ -1,0 +1,45 @@
+---
+import { format } from "date-fns";
+import type { PostFrontmatter } from "@/types";
+
+export interface Props {
+  url?: string;
+  data: PostFrontmatter;
+}
+
+const {
+  url,
+  data: { title, readingTime, pubDate, description, coverImage },
+} = Astro.props;
+---
+
+<article>
+  <a
+    href={url}
+    class="aspect-video w-full relative block mb-4"
+    aria-label={title}
+  >
+    <img
+      src={coverImage}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover"
+    />
+    <div
+      class="absolute inset-0 group-hover:bg-black/50 transition-colors duration-300"
+    >
+    </div>
+  </a>
+  <h3 class="text-xl font-bold mb-2">
+    <a href={url}>{title}</a>
+  </h3>
+  <p class="line-clamp-2 text-gray-600 mb-2">
+    {description}
+  </p>
+  <p class="text-gray-600">
+    <time datetime={pubDate}>
+      {format(new Date(pubDate), "MMM dd, yyyy")}
+    </time>
+    {" • "}
+    <span>{readingTime}</span>
+  </p>
+</article>

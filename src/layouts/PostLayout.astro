@@ -1,0 +1,57 @@
+---
+import type { PostFrontmatter } from "@/types";
+import { format } from "date-fns";
+import BaseLayout from "./BaseLayout.astro";
+
+export interface Props {
+  content: PostFrontmatter;
+}
+
+const {
+  content: { title, description, pubDate, readingTime, coverImage },
+} = Astro.props;
+---
+
+<BaseLayout title={title} description={description} image={coverImage}>
+  <main>
+    <header class="grid lg:grid-cols-2 bg-gray-100">
+      <div
+        class="flex-1 px-6 py-16 mx-auto max-w-2xl flex justify-center flex-col"
+      >
+        <ul class="mb-4 text-gray-600 flex items-center gap-2">
+          {
+            pubDate && (
+              <li>
+                <time>
+                  <span>Published At</span>
+                  {format(new Date(pubDate), "MMM dd, yyyy")}
+                </time>
+              </li>
+            )
+          }
+
+          <li>
+            <span class="mr-2">•</span>{readingTime}
+          </li>
+        </ul>
+        <h1 class="text-4xl font-black">
+          {title}
+        </h1>
+      </div>
+      <div class="aspect-video overflow-hidden relative flex-1">
+        <img
+          src={coverImage}
+          alt={`${title} - Thumnail`}
+          class="absolute inset-0 w-full h-full object-cover"
+        />
+      </div>
+    </header>
+    <div class="my-16 space-y-16 mx-auto max-w-6xl px-6">
+      <article
+        class="prose dark:prose-invert mx-auto prose-pre:-mx-4 prose-pre:bg-gray-800 prose-pre:rounded-lg"
+      >
+        <slot />
+      </article>
+    </div>
+  </main>
+</BaseLayout>

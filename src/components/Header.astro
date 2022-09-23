@@ -1,0 +1,23 @@
+---
+import HeaderLink from "./HeaderLink.astro";
+---
+
+<header>
+  <div class="flex gap-8 py-4 px-6 mx-auto max-w-6xl">
+    <nav class="flex flex-1 items-center gap-4">
+      <a href="/" class="h-6"
+        ><img
+          src="/brand-logo.svg"
+          alt="Brand Logo"
+          class="h-full object-contain"
+        />
+      </a>
+    </nav>
+
+    <nav class="flex flex-1 items-center justify-end gap-4">
+      <HeaderLink href="https://github.com/rohid2d" target="_blank">
+        Support
+      </HeaderLink>
+    </nav>
+  </div>
+</header>
